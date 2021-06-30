@@ -1,0 +1,26 @@
+# NAME: Ethan Wong
+# EMAIL: ethanwong@g.ucla.edu
+# ID: 305319001
+
+Included Files:
+  - lab1a.c - Holds the source code for the project
+  - Makefile - Holds the settings for compiling the source code (default), 
+      creating the tarball (dist), and cleaning to return to the original
+      state (clean)
+  - README - The file you are currently reading. Contains information on 
+      files included in the submission and resources used to complete
+      the project
+
+
+Resources: 
+https://stackoverflow.com/questions/27541910/how-to-use-execvp
+https://man7.org/linux/man-pages/man3/exec.3.html
+https://man7.org/linux/man-pages/man2/dup.2.html
+https://pubs.opengroup.org/onlinepubs/009696799/functions/tcsetattr.html
+https://pubs.opengroup.org/onlinepubs/009695299/functions/tcgetattr.html
+https://man7.org/linux/man-pages/man3/termios.3.html
+https://linux.die.net/man/3/getopt_long
+https://man7.org/linux/man-pages/man2/poll.2.html
+https://linux.die.net/man/2/waitpid
+Alexandre Tiard's Discussion and Slides
+TA Office Hours

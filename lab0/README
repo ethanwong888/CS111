@@ -1,0 +1,37 @@
+# NAME: Ethan Wong
+# EMAIL: ethanwong@g.ucla.edu
+# UID: 305319001
+
+Description of included files
+  lab0.c - This is the source code for the project. It's basic purpose is to copy stdin to stdout; it
+    also includes some options such as --input, --output, --segfault, and --catch.
+  Makefile - This contains settings for compilation. It includes default, clean, dist, and check.
+  backtrace.png - This is a screenshot of a segmentation fault and its associated stack-trace.
+  breakpoint.png - This is a screenshot of a breakpoint and variable inspection.
+  README - This is the file you are currently reading. It includes a description of the files, 
+    smoke-test cases, and resources used to complete this project.
+
+
+Description of smoke-test cases
+  # Test 1: Checking normal use of the function - can the standard input be copied to standard output properly?
+    - Program should exit with code 0
+  # Test 2: Checking for segfault with --segfault --catch option
+    - Program should exit with code 4
+  # Test 3: Checking what happens with an unrecognized argument
+    - Program should exit with code 1
+  # Test 4: Checking what happens when unable to open output file
+    - Program should exit with code 3
+  # Test 5: Checking what happens when unable to open input file
+    - Program should exit with code 2
+
+
+Additional resources
+  man pages/ examples of how to use functions
+    https://linux.die.net/man/3/getopt_long 
+    https://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Option-Example.html
+    https://man7.org/linux/man-pages/man2/open.2.html
+    https://man7.org/linux/man-pages/man3/strerror.3.html
+    https://man7.org/linux/man-pages/man3/errno.3.html
+  Miscellaneous resources 
+    TA Alxendre Tiard's discussion section and his discussion slides
+    TA Office Hours

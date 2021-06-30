@@ -1,0 +1,60 @@
+# NAME: Ethan Wong
+# EMAIL: ethanwong@g.ucla.edu
+# UID: 305319001
+
+#!/bin/bash
+#shebang
+
+# Test 1: Checking normal use of the function
+echo "Hi my name is Ethan Wong" > sampleInput.txt
+./lab0 --input sampleInput.txt --output sampleOutput.txt
+if [[ $? -ne 0 ]]
+then
+  echo "There was an error when the using the function normally."
+else
+  echo "The program reacted properly and SUCCESSFULLY exited with code 0 when using the function normally."
+fi
+
+# Test 2: Checking for segfault with --segfault --catch option
+./lab0 --segfault --catch
+if [[ $? -ne 4 ]]
+then
+  echo "There was an error with the --segfault --catch option."
+else 
+  echo "The program reacted properly and SUCCESSFULLY exited with code 4 when using the --segfault --catch options."
+fi
+
+# Test 3: Checking what happens with an unrecognized argument
+./lab0 --GORILLAINACOUPE
+if [[ $? -ne 1 ]]
+then
+  echo "There was an error when an unrecognized argument was included."
+  echo $?
+else
+  echo "The program reacted properly and SUCCESSFULLY exited with code 1 when an unrecognized argument was included."
+fi
+
+# Test 4: Checking what happens when unable to open output file
+# touch sampleOutput.txt
+chmod 444 sampleOutput.txt
+./lab0 --input sampleInput.txt --output sampleOutput.txt
+if [[ $? -ne 3 ]]
+then 
+  echo "There was an error when the output file could not be opened."
+else
+  echo "The program reacted properly and SUCCESSFULLY exited with code 3 when the output file could not be opened."
+fi
+chmod 777 sampleOutput.txt
+
+# Test 5: Checking what happens when unable to open input file
+touch sampleInput.txt
+rm sampleInput.txt
+./lab0 --input sampleInput.txt
+if [[ $? -ne 2 ]]
+then 
+  echo "There was an error when the input file could not be opened."
+else
+  echo "The program reacted properly and SUCCESSFULLY exited with code 2 when the input file could not be opened."
+fi
+
+rm sampleOutput.txt
