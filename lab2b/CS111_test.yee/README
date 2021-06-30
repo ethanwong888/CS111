@@ -1,0 +1,82 @@
+NAME: Ethan Wong
+EMAIL: ethanwong@g.ucla.edu
+ID: 305319001
+
+
+Included Files:
+ - SortedList.h - contains descriptions of functions in SortedList.context
+ - SortedList.c - implementations of the functions described on SortedList.hand
+ - lab2_list.c - source code for all the option parsing, what to do with different options, etc.
+ - lab2b_list.gp - contains script for generating graphs
+ - tests.sh - contains tests used for generating data that will be used to create graphs
+ - Makefile - contains all the different options such as default, tests, graphs, dist, clean, profile
+ - lab2b_list.csv - contains the raw data from running tests.sh
+ - profile.out - results of make profile
+ - README - the file you are currently reading - contains answers to questions, included files, etc.
+ - lab2b_1.png - graph for throughput vs. number of threads for mutex and spin-lock synchronized list operations
+ - lab2b_2.png - graph for mean time per mutex wait and mean time per operation for mutex-synchronized list operations
+ - lab2b_3.png - graph for successful iterations vs. threads for each synchronization method
+ - lab2b_4.png - graph for throughput vs. number of threads for mutex synchronized partitioned lists.
+ - lab2b_5.png - graph for throughput vs. number of threads for spin-lock-synchronized partitioned lists
+
+Answers to Questions
+2.3.1
+ - Most of the cycles of the 1 and 2-thread list tests were spent actually executing the operations on the linked list. We know this because when
+    there is only one thread, there is no need to worry about switching between threads or anything like that. All time is spent on executing
+    sequentially. When there are 2 threads, some time is spent on switching between threads but because there are so few threads, it is unlikely
+    that much time was spent on this. The majority of time would have still been spent on the execution.
+ - It makes sense that the actual execution would be the most expensive part of the code because the locks do not take a lot of time for the linked
+    list. The threads don't really sit around idly waiting, they are always working on something. In addition, linked list operations are usually
+    decently expensive to run anyway, with most of them being O(n) time complexity. This slow time complexity dwarfs the time needed for the locks
+    to be taken care of.
+ - Most of the cycles for the high-thread spin-lock tests are probably spent waiting, or spinning. Spin-locks are highly inefficient because only
+    one thread is allowed to operate at a time while the rest of the locks sit around and wait. A lot of the cycles are probably the threads just
+    repeatedly asking if the lock is available yet.
+ - Most of the cycles for the high-thread mutex tests are probably spent on the list operations. This is because when using mutex, it is much more
+    efficient since the threads are not sitting around idly, they are either doing something or they are not taking up resources at all. Therefore,
+    it is reasonable to assume that the majority of the time is spent performing the list operations. Because there are many threads, it can also 
+    be noted that a lot of cycles might be wasted as overhead due to context switches, but these context switches are unlikely to have taken more
+    time than the actual list operations.
+
+2.3.2
+ - The part of the code that is consuming most of the cycles when the spin-lock version of the list exerciser is run with a large number of threads
+    are the while loops that call __sync_lock_test_and_set(&spinny[deleteIndex], 1) repeatedly. This is where the waiting, or spinning occurs. 
+    These while loops can be seen in lines 63, 92, and 133.
+ - This operation is exceedingly expensive when there are more threads because only one thread can work at a time. Having a lot of threads could
+    be thought of as having a very long line. Each of the threads wants to be able to do their work, but they must wait in line for the others to
+    finish before they get a chance to start their work. Looking at it this way, it makes sense that having a lot of threads waiting in this line
+    would waste a lot of time, because the threads in the back are going to have to wait for a very long time before they get a turn to work.
+
+2.3.3
+ - The reason the average lock-wait time rise so dramatically with the number of contending threads is because of what I explained in the previous
+    question. If you think about the threads as being in a line, the average wait time when there are a few threads are short because there are
+    only a few threads in line in front of them. However, when there are many threads and therefore a longer line, the threads in the back have to
+    wait an extremely long time for their turn since there are so many threads in front of them. This will skew the average wait time to be higher
+    with many threads as some of these threads will act as outliers.
+ - The completion time per operation rises with the number of contending threads because there are many context switches between threads, which 
+    causes overhead and increases the average time needed for each operation to complete. In this scenario mutex locks are being used instead of
+    spin locks, which means that the longer times to complete are not a matter of the threads sitting idly but because of the necessary context
+    switches between all the threads.
+ - Wait time per operation can increase faster than the completion time per operation because wait time includes the total amount of time spent
+    waiting among all the threads. On the other hand, completion time is referring to the operations being executed across all threads. Because 
+    the wait time is a sum, it makes sense that it would be larger. Because it is larger, it would then make sense that it would grow faster.
+
+2.3.4
+ - Performance should improve when there is a higher number of lists because having many lists allows for a higher degree of parallelism. In addition
+    to the paralellism, it is helpful to have many smaller lists because then the list operations will be quicker. There will be fewer elements in
+    the lists, making the list operations run faster, especially since most of the operations are O(n) or worse.
+ - It would make sense for throughput to increase as the number of lists is further increased, but only up until a certain point. As we saw in the
+    pervious question, performance definitely improves when having more lists. However, if there are the same number of threads as there are lists,
+    then the throughput would not really improve anymore as this would essentially be the same as using one thread per action. The throughput increase
+    would likely plateau in this scenario. Therfore, it is smart to increase the number of lists but not infinitely.
+ - This is not a reasonable claim. Having the partitioned list would allow for more throughput and parallelism up until a certain point, which is
+    definitely a positive thing. On the other hand, a single list with only a few threads would still be decently efficient, but it would not be 
+    equivalent to the paritioned list. Having fewer threads work on the single list means that not many operations could be done at once, leading
+    to less efficiency and less throughput.
+
+
+Note: I think this has to do with the servers being extremely busy, but sometimes the sanity test script works fine for me and sometimes it does
+   not work properly. There have been a few occasions where the test script froze while I was running it. I just interrupted it and ran it again
+   and then it worked. I'm pretty sure this is just because the servers were busy, but I thought I would leave a note about it just in case. There
+   was also the thing with the "LITTLE BENEFIT" in the test script. The TA mentioned in Piazza that this was likely because the servers are busy 
+   as well, so I'm not really sure how I would resolve this.
