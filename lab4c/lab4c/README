@@ -1,0 +1,16 @@
+NAME: Ethan Wong
+EMAIL: ethanwong@g.ucla.edu
+ID: 305319001
+
+Included files:
+ - lab4c_tcp.c - source code for tcp logging related stuff - communication with logging server
+ - lab4c_tls.c - source code for tls logging related stuff - authenticated tls session encryption
+ - Makefile - contains options such as default, clean, and dist
+ - README - the file you are currently reading - contains info on included files and references
+
+ References:
+ - https://www.openssl.org/docs/manmaster/man7/ssl.html
+ - https://www.sdxcentral.com/resources/glossary/transmission-control-protocol-tcp/
+ - https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/
+ - Discussion 1C
+ - Discussion slides
