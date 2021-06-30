@@ -1,0 +1,15 @@
+NAME: Ethan Wong
+EMAIL: ethanwong@g.ucla.edu
+ID: 305319001
+
+Included Files:
+  - my_beaglebone.jpg - a selfie of me holding my my_beaglebone
+  - connected.png - a screenshot from a command session connected to my system, showing that I gave it a name and configured network access
+  - copy.png - a screenshot from a local session in which I copied a hello world program from my laptop to my Beaglebone
+  - build_run.jpg - a screenshot of me compiling and running the hello world program from above
+  - git.png - a screenshot of me looking at the git version number, as well as cloning a repo and looking at its contents
+  - Makefile - contains code for building the tarball
+  - README - the file you are reading now, which contains information on included files and such
+
+BeagleBone Serial Number: BBGW20080493
+WIFI MAC Address: 2c:f7:f1:06:c5:ec
